@@ -1,0 +1,1 @@
+# labe2-robot-deti
