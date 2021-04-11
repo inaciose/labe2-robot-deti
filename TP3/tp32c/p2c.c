@@ -4,7 +4,7 @@ int
 main (void)
 {
   /* Variable declarations go here */
-  int lastbutton = 1; // debouncing ctrl
+  int lastbutton = 0; // debouncing ctrl
   int ledid = 1;
 
   /* initPIC32() makes all the required initializations to the
@@ -29,7 +29,7 @@ main (void)
         lastbutton = 1;
       } else {
         lastbutton = 0;
-        delay_ms(100); // realy need to wait where
+        //delay_ms(100); // realy need to wait where?
       }
     }
   return (0);
