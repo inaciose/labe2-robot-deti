@@ -37,7 +37,7 @@
 # In the following line, define the name of your program source files
 # by writing in the line starting with SOURCES= 
 # (this is all you need to change...)
-SOURCES=test.c 
+SOURCES=p2d.c 
 
 # Next line defines the USB port used by ldpic32. Change this if the
 # USB port is not /dev/ttyUSB0
