@@ -1,47 +1,5 @@
 #include "labE.h"
 
-/*
-void rotateRight()
-{
-  
-	int i=0;
-	
-	for(i=0;i<100;i++)
-	{
-				setSpeed(i,0-i);
-				delay_ms(20);
-	}
-	
-  delay_ms(100);
-
-	for(i=0;i<100;i++)
-	{
-				setSpeed(100-i,-100+i);
-				delay_ms(20);
-	}
-  
-}
-
-void rotateLeft()
-{
-	int i=0;
-	
-	for(i=0;i<100;i++)
-	{
-				setSpeed(0-i,i);
-				delay_ms(20);
-	}
-	
-  delay_ms(100);
-
-	for(i=0;i<100;i++)
-	{
-				setSpeed(-100+i,100-i);
-				delay_ms(20);
-	}
-}
-*/
-
 int
 main (void)
 {
@@ -53,16 +11,20 @@ main (void)
 
   while (TRUE)
     {
-
       /* Code goes here */
 
-      //rotateLeft();
+      //rotateLeft
       setSpeed(-80,80);
-      delay_ms(100);
-      //rotateRight();
+      delay_ms(3000);
+	  // stop
+	  setSpeed(0,0);
+	  delay_ms(2000);
+      //rotateRight
       setSpeed(80,-80);
-      delay_ms(100);
-
+      delay_ms(3000);
+	  // stop
+	  setSpeed(0,0);
+	  delay_ms(2000);
     }
   return (0);
 }
