@@ -1,0 +1,104 @@
+#include "labE.h"
+#include "labE_usound.h"
+//#include <math.h>
+
+//
+// variables definition
+//
+
+int analogSignal;               // hold signal value
+int analogLowReference = 400;   // HIGH threshold
+
+//double airTemp = 25;            // temperature in celsius
+double usPeriod = 0.000025;     // period in seconds
+
+// velocity meters per second
+// use pre-calculated values
+// temp   vel m/s
+// 0      332
+// 10     337
+// 15     340
+// 20     343
+// 25     346
+// 30     350
+double soundVelocitySec = 346; 
+
+double distance;                // distance meters
+
+double getDistanceFromSonar() {
+  
+  double dist;                    // distance meters
+  unsigned long usDelayPeriods;   // us tof in periods
+
+  // we got some signal, get tof
+  // expressed in periods
+  // each period is 25us
+  usDelayPeriods = uSound_get_delay();
+
+  //printInt10(usDelayPeriods);
+  //printStr("\t");
+
+  // calculate distance with conversion from periods to seconds
+  dist = 0.5 * (double)usDelayPeriods * usPeriod * soundVelocitySec;
+
+  //printInt10(dist * 1000000);
+  //printStr("\n");
+
+  return dist;
+}
+
+int
+main (void)
+{
+  /* initPIC32() makes all the required initializations to the
+   * PIC32 hardware platform */
+  initPIC32 ();
+
+  /* uSound_init() initializes the oscillator hardware */
+  uSound_init();
+
+  // sound velocity calculation with conversion to kelvin
+  //soundVelocitySec = 20.06 * sqrt(273.15 + airTemp);
+  
+  printStr("start\n");
+
+  /* Main cycle */
+  /* Cycle to send an ultrasound burst every second */
+  while (TRUE)
+    {
+      /* Wait 1 s */
+      delay_ms(1000);
+      
+      /* Sends a ultrasound burst, 600us long */
+      // it is 24 periods (at 40kHz)
+      uSound_burst(600/25);
+
+      // while LOW
+      analogSignal = 0;
+      while(analogSignal < analogLowReference) {
+        // read analog port 7
+        analogSignal=analog(Analog7);
+        unsigned long tmp = uSound_get_delay();
+        if(tmp > 164) {
+          printInt10(tmp);
+          //printStr(" break\n");
+          break;
+        }
+        
+        //printStr("loop ");
+        printInt10(tmp);
+        printStr("\t");
+        printInt10(analogSignal);
+        printStr("\n");
+        //*/
+        
+        
+      }
+      printStr("ok\n");
+      //while(1) {}
+
+      distance = getDistanceFromSonar();
+
+    }
+  return (0);
+}
